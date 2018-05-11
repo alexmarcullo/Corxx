@@ -1,7 +1,6 @@
 ﻿using Corxx.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Corxx.Domain.Repositories
@@ -12,13 +11,13 @@ namespace Corxx.Domain.Repositories
 
         Task<User> GetByIdAsync(Guid id);
 
-        Task<User> GetByEmailAsync(Guid id);
+        Task<User> GetByEmailAsync(string email);
 
         Task SaveAsync(User entity);
 
-        Task UpdateAsync(User entity);
+        void Update(User entity);
 
-        Task DeleteAsync(User entity);
+        void Delete(User entity);
 
     }
 }

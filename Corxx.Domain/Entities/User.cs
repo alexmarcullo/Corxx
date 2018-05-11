@@ -5,14 +5,13 @@ namespace Corxx.Domain.Entities
 {
     public class User : Entity
     {
-        public User(Name name, Email email)
+        public User(Email email, Name name)
         {
             Name = name;
             Email = email;
         }
 
-        public Name Name { get; private set; }
         public Email Email { get; private set; }
-
+        public Name Name { get; private set; }
     }
 }
