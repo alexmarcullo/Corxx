@@ -1,9 +1,10 @@
 ﻿using System;
 using FluentValidation.Results;
+using MediatR;
 
 namespace Corxx.Shared.Commands
 {
-    public abstract class CommandInput
+    public abstract class CommandInput : INotification
     {
         public CommandInput()
         {
