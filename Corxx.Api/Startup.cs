@@ -7,6 +7,7 @@ using Corxx.Domain.Commands.IoC;
 using Microsoft.Extensions.Configuration;
 using System;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Corxx.Infra.Services.IoC;
 
 namespace Corxx.Api
 {
@@ -21,6 +22,7 @@ namespace Corxx.Api
 
             services.AddRepository(config.GetConnectionString("corxx"));
             services.AddHandlers();
+            services.AddServices(config["emailService:hostname"], int.Parse(config["emailService:port"]), config["emailService:username"], config["emailService:password"], bool.Parse(config["emailService:enableSsl"]));
 
             services.AddMediatR();
         }

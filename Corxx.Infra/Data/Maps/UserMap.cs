@@ -43,6 +43,12 @@ namespace Corxx.Infra.Data.Maps
                 .HasMaxLength(60)
                 .HasColumnType(ColType.Varchar(200))
                 .IsRequired();
+
+
+            builder
+                .Property(x => x.DateTimeInserted)
+                .HasColumnName("DateTimeInserted")
+                .IsRequired();
         }
     }
 }

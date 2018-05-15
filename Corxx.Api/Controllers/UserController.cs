@@ -22,8 +22,8 @@ namespace Corxx.Api.Controllers
         public async Task<IActionResult> Post([FromBody] RegisterUserCommandInput command)
         {
             return await Response(
-                await _handler.Handler(command), 
-                command.Notifications.ToList());
+                await _handler.Handler(command),
+                _handler.Notifications.ToList());
         }
     }
 }

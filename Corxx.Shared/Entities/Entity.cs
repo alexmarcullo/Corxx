@@ -7,8 +7,10 @@ namespace Corxx.Shared.Entities
         protected Entity()
         {
             Id = Guid.NewGuid();
+            DateTimeInserted = DateTime.Now;
         }
 
         public Guid Id { get; private set; }
+        public DateTime DateTimeInserted { get; private set; }
     }
 }
