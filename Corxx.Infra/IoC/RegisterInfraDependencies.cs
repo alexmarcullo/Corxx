@@ -15,7 +15,9 @@ namespace Corxx.Infra.IoC
                 options.UseSqlServer(connectionStrings);
             });
 
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            services.AddTransient<IUserRepository, UserRepository>();
         }
     }
 }

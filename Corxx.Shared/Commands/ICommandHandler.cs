@@ -1,7 +1,9 @@
-﻿namespace Corxx.Shared.Commands
+﻿using System.Threading.Tasks;
+
+namespace Corxx.Shared.Commands
 {
     public interface ICommandHandler<T> where T : CommandInput
     {
-        CommandOutput Handler(T command);
+        Task<ICommandOutput> Handler(T command);
     }
 }

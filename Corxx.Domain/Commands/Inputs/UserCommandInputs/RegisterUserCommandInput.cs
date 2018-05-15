@@ -1,4 +1,7 @@
-﻿namespace Corxx.Domain.Commands.Inputs.UserCommandInputs
+﻿using Corxx.Domain.Commands.Validators;
+using System.Linq;
+
+namespace Corxx.Domain.Commands.Inputs.UserCommandInputs
 {
     public class RegisterUserCommandInput : UserCommandInputsFields
     {
@@ -11,7 +14,11 @@
 
         public override bool IsValid()
         {
-            return true;    
+            this.ValidateFirstName();
+            this.ValidateLastName();
+            this.ValidateEmail();
+
+            return !Notifications.Any();
         }
     }
 }

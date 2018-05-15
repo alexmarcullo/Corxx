@@ -3,26 +3,28 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Corxx.Infra.IoC;
+using Corxx.Domain.Commands.IoC;
 using Microsoft.Extensions.Configuration;
 using System;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace Corxx.Api
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             var config = AddConfiguration(services);
             var mvc = AddMvc(services);
 
+            services.AddCors();
+
             services.AddRepository(config.GetConnectionString("corxx"));
+            services.AddHandlers();
 
             services.AddMediatR();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -48,7 +50,13 @@ namespace Corxx.Api
 
         private static IMvcBuilder AddMvc(IServiceCollection services)
         {
-            return services.AddMvc();
+            return services
+                .AddMvc(options =>
+                {
+                    options.InputFormatters.Add(new XmlSerializerInputFormatter());
+                    options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+                })
+                .AddXmlSerializerFormatters();
         }
     }
 }

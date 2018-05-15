@@ -1,23 +1,29 @@
-﻿using Corxx.Domain.Commands.Inputs.UserCommandInputs;
-using MediatR;
+﻿using Corxx.Domain.Commands.Handlers;
+using Corxx.Domain.Commands.Inputs.UserCommandInputs;
+using Corxx.Infra;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Corxx.Api.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/User")]
-    public class UserController : Controller
+    [Route("api/v1/[controller]")]
+    public class UserController : BaseController
     {
-        private readonly IMediator _mediator;
+        private readonly UserCommandHandler _handler;
 
-        public UserController(IMediator mediator)
+        public UserController(IUnitOfWork unitOfWork,UserCommandHandler handler)
+            : base(unitOfWork)
         {
-            _mediator = mediator;
+            _handler = handler;
         }
 
-        public async void Post([FromBody] RegisterUserCommandInput command)
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] RegisterUserCommandInput command)
         {
-            await _mediator.Publish(command);
+            return await Response(
+                await _handler.Handler(command), 
+                command.Notifications.ToList());
         }
     }
 }

@@ -4,6 +4,7 @@ namespace Corxx.Domain.ValueObjects
 {
     public class Name : VO
     {
+        protected Name() { }
         public Name(string firstName, string lastName)
         {
             FirstName = firstName;

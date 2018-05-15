@@ -1,17 +1,14 @@
-﻿using System;
-using FluentValidation.Results;
-using MediatR;
+﻿using Flunt.Notifications;
+using System;
 
 namespace Corxx.Shared.Commands
 {
-    public abstract class CommandInput : INotification
+    public abstract class CommandInput : Notifiable
     {
         public CommandInput()
         {
             Timespan = DateTime.Now;
         }
-
-        public ValidationResult ValidationResult { get; set; }
 
         public DateTime Timespan { get; private set; }
 

@@ -18,5 +18,10 @@ namespace Corxx.Infra.Data
         {
             modelBuilder.ApplyConfiguration(new UserMap());
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
     }
 }

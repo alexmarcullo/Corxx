@@ -16,24 +16,32 @@ namespace Corxx.Infra.Data.Maps
                 .HasKey(x => x.Id);
 
             builder
-                .Property(x => x.Email.Address)
-                .HasColumnName("Email")
-                .HasMaxLength(60)
-                .HasColumnType(ColType.Varchar(200))
+                .Property(x => x.Id)
+                .HasColumnName("Id")
                 .IsRequired();
 
             builder
-                .Property(x => x.Name.FirstName)
+                .OwnsOne(x=> x.Name)
+                .Property(x=> x.FirstName)
                 .HasColumnName("FirstName")
                 .HasMaxLength(60)
                 .HasColumnType(ColType.Varchar(60))
                 .IsRequired();
 
             builder
-                .Property(x => x.Name.LastName)
+                .OwnsOne(x => x.Name)
+                .Property(x => x.LastName)
                 .HasColumnName("LastName")
                 .HasMaxLength(60)
                 .HasColumnType(ColType.Varchar(60))
+                .IsRequired();
+
+            builder
+                .OwnsOne(x=> x.Email)
+                .Property(x => x.Address)
+                .HasColumnName("Email")
+                .HasMaxLength(60)
+                .HasColumnType(ColType.Varchar(200))
                 .IsRequired();
         }
     }
